@@ -1,0 +1,30 @@
+/**
+ * 作者：金冠超
+ * 邮箱地址：jgc14115@163.com
+ * 功能：全局样式
+ * 时间：2020-6-16
+**/
+@import './sassConfig.scss';//引入全局样式
+@import './reset.scss';//清空浏览器默认样式
+
+body {
+    background-color: $testColor 
+}
+
+a {
+    text-decoration:underline !important;
+    color:black !important;
+}
+
+.Button-success{
+    width:100%;
+    background-color:$success;
+    border:1px solid $success;
+}
+.Button-success:hover, .Button-success:focus {
+        background: $activeSuccess;
+        border-color: $activeSuccess;
+    } 
+.Button-success:active  {
+    background-color: $testColor;
+}

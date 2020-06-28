@@ -1,0 +1,46 @@
+/**
+ * 作者：金冠超
+ * 邮箱地址：jgc14115@163.com
+ * 功能：登录页样式
+ * 时间：2020-6-16
+**/
+.form-warp {
+    display:flex;
+    width:400px;
+    height:100vh;
+    margin:auto;
+    align-items:center;
+    > div {
+        width:100%;
+        background-color:rgba(247, 15, 247 , 0.4);
+        padding:10px;
+    }
+}
+
+.form-header {
+    height: 66px;
+    line-height: 66px;
+    color:Black;
+    > h4 {
+        margin:0;
+        padding:0;
+    }
+    .column {
+        font-size: 40px;
+        font-weight: 40;
+        font-family: '楷体';
+        color:white;
+        float:left;
+    }
+    span {
+        font-size: 20px;
+        float:right;
+        opacity:.6;
+    }
+}
+
+.index-globa{
+    background-image: url('https://cn.bing.com/th?id=OHR.SantaElena_ZH-CN8036210800_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp');
+}
+
+

@@ -1,9 +1,6 @@
 import React from 'react'
-import { Route, Switch, BrowserRouter } from 'react-router-dom'
-// import logo from './logo.svg';
-import './App.css';
-import Home from './router/Home';
-import About from './router/About';
+import { Route, Switch, HashRouter} from 'react-router-dom'
+import Index from './router/Index'
 
 
 class App extends React.Component{
@@ -15,28 +12,11 @@ class App extends React.Component{
   render(){
     return(
           <div className="App">
-              <BrowserRouter>
-                  {/* <HashRouter> */}
+                  <HashRouter>
                     <Switch>
-                      <Route exact component={About} path="/about"/>
-                      <Route exact component={Home} path="/"/>
+                      <Route exact component={Index} path="/"/>
                     </Switch>
-                  {/* </HashRouter> */}
-                </BrowserRouter>
-          {/* <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              这里是 <code>React</code> 自有项目.
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              血小板~
-            </a>
-          </header> */}
+                  </HashRouter>
         </div>
     )
   }
