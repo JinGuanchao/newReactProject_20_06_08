@@ -7,7 +7,7 @@
 import axios from 'axios';
 //第一步，创建实例
 const service = axios.create({
-    baseURL: 'devApi',
+    baseURL: process.env.REACT_APP_API,//通过不同环境连接到不同的.env文件，调用其中命名为REACT_APP_API的变量
     timeout: 1000,
     //headers: {'X-custom-Header':'foobar'}//请求头，此处删除
 })
@@ -15,6 +15,7 @@ const service = axios.create({
 service.interceptors.request.use(
     function(config){
         //发送请求前做什么
+        console.log(process.env.NODE_ENV);//打印当前环境development test production
         return config;
     },function(error){
         //对请求错误时做什么

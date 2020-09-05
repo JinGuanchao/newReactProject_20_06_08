@@ -11,8 +11,27 @@ import service from '../../src/utils/request'
 export function LoginApi(data){
     return service.request({
         url:'/login/',
-        methods:'post',
+        method:'post',
         data,//请求类型为get时的写法
         // params:data,//请求类型为get的写法
+    })
+}
+
+//验证码接口
+export function GetCodeApi(data){
+    return service.request({
+        url:'/getSms/',
+        method:'post',
+        data,//请求类型为get时的写法
+        // params:data,//请求类型为get的写法
+    })
+}
+
+//注册接口
+export function RegisterApi(data){
+    return service.request({
+        url:'/register/',
+        method:'post',
+        data
     })
 }

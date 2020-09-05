@@ -5,11 +5,13 @@
  * 时间：2020-6-16
 **/
 import React,{Component,Fragment} from 'react'
-import { Form, Input, Button, Row, Col} from 'antd'
+import { Form, Input, Button, Row, Col, message} from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import {validate_password_message, validate_password} from '../../utils/vaildate';
+import {validate_password_message, validate_password, validata_username} from '../../utils/vaildate';
 //引入接口api
-import {LoginApi} from '../../api/account'
+import {LoginApi,GetCodeApi} from '../../api/account'
+//引入密码加密
+import CryptoJs from 'crypto-js'
 const FormItem=Form.Item
 
 
@@ -18,19 +20,87 @@ const FormItem=Form.Item
 class Login extends Component{
     constructor(props){
         super(props)
-        this.state={}
+    }
+    state={
+        userName:'',//用户名
+        passWord:'',//密码
+        keyWord:'',//验证码
+        keyWordLoading:false,
+        keyWordText:'获取验证码',
+        keywordAbsolution:false,
     }
 
     //表单提交事件
     onFinish=(values)=>{
-        LoginApi().then(response =>{
-            console.log(response)
+        let postData={
+            username:this.state.userName,
+            password:CryptoJs.MD5(this.state.passWord).toString(),
+            code:this.state.keyWord
+        }
+        LoginApi(postData).then(response =>{
+            if( response.data.resCode==0){
+                this.props.changeForm('login')
+           }else{
+            message.info(response.data.message)
+           }
         }).catch(error=>{
-            console.log(error)
+            message.error('服务异常')
         })
     }
 
+    //获取验证码
+    getCode=(value)=>{
+            this.setState({
+                keyWordLoading:true,
+                keywordAbsolution:true,
+                keyWordText:'获取中'
+            })
+            const postData={
+                username:this.state.userName,
+                module:value
+            }
+            GetCodeApi(postData).then(respone=>{
+                this.countDown()
+                message.info(respone.data.message)
+            }).catch(error=>{
+            this.setState({
+                keyWordLoading:false,
+                keyWordText:'重新获取验证码'
+            })
+                message.error('服务异常')
+            })
+    }
+    //输入框变化
+    inputChange=(value,key)=>{
+        this.setState({[key]:value.target.value})
+    }
+    //倒计时
+    countDown = () =>{
+        let timer=null;
+        let sec='60';
+        this.setState({
+            keyWordLoading:false,
+            keywordAbsolution:true,
+            keyWordText:`${sec}S`
+        })
+        timer=setInterval(() => {
+            sec--
+            if(sec<=0){
+                this.setState({
+                    keyWordText:'重新获取',
+                    keywordAbsolution:false,
+                })
+                clearInterval(timer);
+                return false
+            }
+            this.setState({
+                keyWordText:`${sec}S`
+            })
+        },1000)
+    }
+
     render(){
+        const _this=this;
         return(
                 <Fragment>
                     <div className='form-header'>
@@ -41,6 +111,7 @@ class Login extends Component{
                         <Form 
                             name="normal_login"
                             className="login-form"
+                            initialValues={{remember:true}}
                             onFinish={this.onFinish}
                             >
                             <FormItem
@@ -48,11 +119,24 @@ class Login extends Component{
                                 rules={[
                                     {
                                         required:true,
-                                        message:'用户名必填',
-                                        }
+                                        pattern:validata_username,
+                                        message:'用户名为邮箱',
+                                        },
+                                        // ({getFieldValue})=>({
+                                        //     validator(rule,value){
+                                        //         if(validata_username.test(value)){
+                                        //             return Promise.resolve()
+                                        //         }
+                                        //         if(value!=''){
+                                        //             return Promise.reject('用户名为邮箱')
+                                        //         }
+                                        //             return Promise.reject()
+                                                
+                                        //     }
+                                        // })
                                     ]}
                             >
-                                <Input prefix={<UserOutlined/>} placeholder='请输入用户名 '/>
+                                <Input  prefix={<UserOutlined/>} placeholder='请输入用户名 ' onChange={(value)=>this.inputChange(value,'userName')}/>
                             </FormItem>
                             <FormItem
                                 name='password'
@@ -60,11 +144,11 @@ class Login extends Component{
                                     {
                                         required:true,
                                         pattern:validate_password,
-                                        message:validate_password_message
-                                    }
+                                        message:validate_password_message,
+                                    },
                                     ]}
                             >
-                                <Input.Password prefix={<LockOutlined/>} type='password' placeholder='请输入密码 '/>
+                                <Input.Password prefix={<LockOutlined/>} type='password' placeholder='请输入密码 ' onChange={(value)=>this.inputChange(value,'passWord')}/>
                             </FormItem>
                             <Row gutter={13}>
                                 <Col span={15}>
@@ -77,11 +161,18 @@ class Login extends Component{
                                                 }
                                             ]}
                                     >
-                                        <Input placeholder='请输入验证码 '/>
+                                        <Input placeholder='请输入验证码 ' onChange={(value)=>this.inputChange(value,'keyWord')}/>
                                     </FormItem>
                                 </Col>
                                 <Col span={9}>
-                                    <Button type='danger' block>获取验证码</Button>
+                                    <Button 
+                                        type='danger' 
+                                        block 
+                                        style={this.state.keywordAbsolution?{backgroundColor:'yellow',color:'black'}:{}}
+                                        onClick={()=>{this.getCode('login')}} 
+                                        disabled={this.state.userName==''||this.state.keywordAbsolution} 
+                                        loading={this.state.keyWordLoading}
+                                        >{this.state.keyWordText}</Button>
                                 </Col>
                             </Row>
                             <FormItem>

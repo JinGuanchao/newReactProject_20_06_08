@@ -24,10 +24,10 @@
             {"file":"motions/Nemui.mtn"}
         ],
         "flick_head":[
-            {"file":"motions/Anone_Synced.mtn","sound":"./touchHead.mp3","text":"我有一头小毛驴"}
+             {"file":"motions/Anone_Synced.mtn","sound":null,"text":"摸摸头"}
         ],
         "tap_body":[
-            {"file":"motions/Dance.mtn","sound":"./touchBody.mp3","text":["不要碰我"]}
+            {"file":"motions/Dance.mtn","text":["need me?","怎么了?"]}
         ]
     }
 }

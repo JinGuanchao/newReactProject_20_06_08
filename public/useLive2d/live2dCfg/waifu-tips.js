@@ -60,20 +60,20 @@ $.ajax({
 
 (function (){
     var text;
-    if(document.referrer !== ''){
-        var referrer = document.createElement('a');
-        referrer.href = document.referrer;
-        text = 'Hello! 来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友';
-        var domain = referrer.hostname.split('.')[1];
-        if (domain == 'baidu') {
-            text = 'Hello! 来自 百度搜索 的朋友<br>你是搜索 <span style="color:#0099cc;">' + referrer.search.split('&wd=')[1].split('&')[0] + '</span> 找到的我吗？';
-        }else if (domain == 'so') {
-            text = 'Hello! 来自 360搜索 的朋友<br>你是搜索 <span style="color:#0099cc;">' + referrer.search.split('&q=')[1].split('&')[0] + '</span> 找到的我吗？';
-        }else if (domain == 'google') {
-            text = 'Hello! 来自 谷歌搜索 的朋友<br>欢迎阅读<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>';
-        }
-    }else {
-        if (window.location.href == 'https://imjad.cn/') { //如果是主页
+    // if(document.referrer !== ''){
+    //     var referrer = document.createElement('a');
+    //     referrer.href = document.referrer;
+    //     text = 'Hello! 来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友';
+    //     var domain = referrer.hostname.split('.')[1];
+    //     if (domain == 'baidu') {
+    //         text = 'Hello! 来自 百度搜索 的朋友<br>你是搜索 <span style="color:#0099cc;">' + referrer.search.split('&wd=')[1].split('&')[0] + '</span> 找到的我吗？';
+    //     }else if (domain == 'so') {
+    //         text = 'Hello! 来自 360搜索 的朋友<br>你是搜索 <span style="color:#0099cc;">' + referrer.search.split('&q=')[1].split('&')[0] + '</span> 找到的我吗？';
+    //     }else if (domain == 'google') {
+    //         text = 'Hello! 来自 谷歌搜索 的朋友<br>欢迎阅读<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>';
+    //     }
+    // }else {
+        if (window.location.hash.split('#')['1'] == '/') { //如果是主页
             var now = (new Date()).getHours();
             if (now > 23 || now <= 5) {
                 text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛';
@@ -95,19 +95,19 @@ $.ajax({
                 text = '嗨~ 快来逗我玩吧！';
             }
         }else {
-            text = '欢迎阅读<span style="color:#0099cc;">『' + document.title.split(' - ')[0] + '』</span>';
+            text = '哼~哼~哼~';
         }
-    }
+    // }
     showMessage(text, 6000);
 })();
 
-window.setInterval(showHitokoto,30000);
+// window.setInterval(showHitokoto,30000);
 
-function showHitokoto(){
-    $.getJSON('https://api.imjad.cn/hitokoto/?cat=&charset=utf-8&length=28&encode=json',function(result){
-        showMessage(result.hitokoto, 5000);
-    });
-}
+// function showHitokoto(){
+//     $.getJSON('https://api.imjad.cn/hitokoto/?cat=&charset=utf-8&length=28&encode=json',function(result){
+//         showMessage(result.hitokoto, 5000);
+//     });
+// }
 
 function showMessage(text, timeout){
     if(Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1)-1];

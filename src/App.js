@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Switch, HashRouter} from 'react-router-dom'
 import Index from './router/Index'
+import Home from './router/Home/Home'
 
 
 class App extends React.Component{
@@ -15,6 +16,7 @@ class App extends React.Component{
                   <HashRouter>
                     <Switch>
                       <Route exact component={Index} path="/"/>
+                      <Route exact component={Home} path="/Home"/>
                     </Switch>
                   </HashRouter>
         </div>

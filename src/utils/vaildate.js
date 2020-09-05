@@ -6,4 +6,5 @@
 **/
 // 密码格式正则验证
 export const validate_password=/^(?![^a-zA-Z]+$)(?!\D+$)(?![a-zA-Z0-9]+$).{6,12}$/
+export const validata_username=/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
 export const validate_password_message='密码长度为6-12位，必须同时包含数字，字母，特殊字符' 

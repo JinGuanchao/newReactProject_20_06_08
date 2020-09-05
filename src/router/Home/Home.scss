@@ -1,0 +1,29 @@
+/**
+ * 作者：金冠超
+ * 邮箱地址：jgc14115@163.com
+ * 功能：首页样式
+ * 时间：2020-9-5
+**/
+.cd_bg{
+    height:100vh
+}
+.header_bg{
+    background-color:white;
+    -webkit-box-shadow: 0 3px 16px 0
+}
+.content_bg{
+    background-color:rgba(0,0,0,0.3);
+    border:30px solid #F7f7f7;
+    padding:30px;
+
+}
+.footer_bg{
+    background-color:rgba(0,0,0,0.5)
+}
+.left-menu{
+    background-color:rgba(85,85,85,0.4);    
+    color:white;
+}
+.menu-item{
+    background-color:rgba(85,85,85,0.2);
+}
