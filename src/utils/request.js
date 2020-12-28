@@ -15,7 +15,7 @@ const service = axios.create({
 service.interceptors.request.use(
     function(config){
         //发送请求前做什么
-        console.log(process.env.NODE_ENV);//打印当前环境development test production
+        console.log('当前环境'+process.env.NODE_ENV);//打印当前环境development test production
         return config;
     },function(error){
         //对请求错误时做什么
